@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocols | Astral Express</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #0c0c0c;
+            color: #e5e5e5;
+        }
+
+        .bg-gradient-overlay {
+            background-color: #0c0c0c;
+            background-image:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 100% 100%, rgba(255, 177, 66, 0.08), transparent);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+        }
+
+        .text-accent {
+            color: #fbbf24;
+        }
+
+        .protocol-item {
+            transition: all 0.2s ease;
+        }
+
+        .protocol-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gradient-overlay">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#0c0c0c]/90 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="/assets/image.png" alt="Logo" class="w-10 h-10 object-contain">
+                <div>
+                    <h1 class="text-lg font-bold tracking-wide">Astral Express</h1>
+                    <p class="text-xs text-gray-500">Crew Protocols</p>
+                </div>
+            </div>
+            <a href="/" class="flex items-center gap-2 text-sm text-accent hover:text-amber-400 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Command
+            </a>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="pt-24 pb-16 px-6">
+        <div class="max-w-3xl mx-auto">
+
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
+                    <span class="text-xs text-amber-400 font-medium">Official Document</span>
+                </div>
+                <h1 class="text-3xl font-bold mb-3">Crew Protocols</h1>
+                <p class="text-gray-500 max-w-md mx-auto">
+                    Mandatory guidelines for all Astral Express crew members.
+                </p>
+            </div>
+
+            <!-- Protocols -->
+            <div class="space-y-4">
+
+                <div class="protocol-item glass-card rounded-xl p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
+                            <span class="text-amber-400 font-bold">01</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Stellaron Security</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Do not share synchronization keys with anyone. This includes Sampo, the Masked Fools,
+                                and anyone from IPC "Special Acquisitions".
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="protocol-item glass-card rounded-xl p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center shrink-0">
+                            <span class="text-cyan-400 font-bold">02</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Terminal Security</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Lock your terminal before leaving the Parlor Car.
+                                <span class="text-pink-400">Pom-Pom</span> monitors unsecured terminals.
+                                Current fine: 500 credits.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="protocol-item glass-card rounded-xl p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center shrink-0">
+                            <span class="text-purple-400 font-bold">03</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Anomaly Reporting</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Report unauthorized IPC broadcasts or Stellaron anomalies to the Navigator immediately.
+                                Do not investigate alone.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="protocol-item glass-card rounded-xl p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center shrink-0">
+                            <span class="text-red-400 font-bold">04</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Fuel Conservation</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Reserves are <span class="text-red-400">critical</span>. Minimize unnecessary jumps.
+                                Coffee runs to Belobog are not emergencies.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Action -->
+            <div class="mt-10 text-center">
+                <a href="/"
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-black font-semibold text-sm rounded-lg hover:bg-amber-400 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Acknowledge & Return
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 py-6">
+        <div class="max-w-6xl mx-auto px-6 text-center text-xs text-gray-600">
+            Document ID: AE-PROTOCOL-2158 · Last Updated: Cycle 2158.147
+        </div>
+    </footer>
+
+</body>
+
+</html>

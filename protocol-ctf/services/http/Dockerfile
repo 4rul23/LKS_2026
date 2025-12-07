@@ -5,7 +5,15 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY app.py config.txt flag_http.txt welcome.msg . 
+# Copy application files
+COPY app.py .
+COPY config.txt .
+COPY flag_http.txt .
+COPY welcome.msg .
+COPY image.png .
+
+# Copy templates directory
+COPY templates/ templates/
 
 EXPOSE 80
 
