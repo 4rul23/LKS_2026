@@ -1,49 +1,54 @@
-# 🔗 Challenge: NovaTech - The Chain Reaction
+# 🔗 Chain Reaction: The NovaTech Breach
 
-**Difficulty:** Medium-Hard  
-**Port:** 5009  
-**Category:** Information Disclosure / Chained Exploitation
-
----
-
-## 📝 Scenario
-
-**PENETRATION TEST ENGAGEMENT**  
-**Client:** NovaTech Inc.  
-**Scope:** External Information Disclosure Assessment
+> **CLASSIFIED ASSIGNMENT // RED TEAM OPERATIONS**
+> **Codename:** GLASS_HOUSE
+> **Target:** NovaTech Infrastructure
 
 ---
 
-### Background
+## 🕵️ Mission Briefing
+**Agent**,
+NovaTech is a "Unicorn" startup that prides itself on its *cutting-edge* cloud architecture. However, our intel suggests their developers are sloppy with secrets management. They claim their internal API is "impenetrable" because it's behind a firewall... but we believe they've left the keys under the doormat.
 
-NovaTech is a rapidly growing cloud infrastructure startup. As part of their security program, they've engaged your team to assess their public-facing web application for any information disclosure vulnerabilities.
+Your objective is to prove that **Information Leakage** is just as deadly as Remote Code Execution. You must find the small cracks in their perimeter, chain them together, and compromise their Super Admin account.
 
-Your goal is to identify and chain together any exposed sensitive information to gain unauthorized access to internal systems.
-
-### Scope
-
-**Target:** `http://[TARGET_IP]:5009`
-
-All paths and endpoints on the target are in scope. Focus on:
-- Sensitive file exposure
-- Debug information leakage
-- API endpoint security
+**Remember:** One small leak can sink a great ship.
 
 ---
 
-## 🛠️ Setup
+## 🎯 Target Scope
+- **URL:** `http://localhost:5009`
+- **Objective:** Obtain the sensitive "System Flag" from the protected internal API.
+- **Rules of Engagement:**
+    1.  Enumeration is key. Look for what *shouldn't* be there.
+    2.  Read the developers' breadcrumbs (config files, docs).
+    3.  Chain your findings. Item A gives access to Item B.
+
+---
+
+## 🧩 Intelligence (Hints)
+*   *"Developers love storing secrets in files starting with a dot."*
+*   *"If you find a new technology stack, learn its default paths."*
+*   *"Internal APIs often trust 'internal' traffic implicitly. Can you fake it?"*
+*   *"Documentation is meant for developers, but hackers read it better."*
+
+---
+
+## 🛠️ Deployment
+Initialize the target environment:
 
 ```bash
+cd info-chain-ctf
 docker-compose up -d --build
 ```
 
-Access at: `http://localhost:5009`
+**Target Status:** `ONLINE` at `http://localhost:5009`
 
 ---
 
-## 📚 Skills Required
+## 🏆 Key Takeaways (Post-Game)
+- **Secrets Management:** Never commit `.env` files or keys to production code.
+- **API Security:** "Internal" APIs must still require robust authentication, not just static keys.
+- **Defense in Depth:** Obscurity (hiding an API) is not Security.
 
-- Web enumeration
-- Information gathering
-- API testing
-- Connecting the dots
+*Good luck, Agent.*
