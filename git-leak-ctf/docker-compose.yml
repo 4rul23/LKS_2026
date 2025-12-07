@@ -1,0 +1,7 @@
+services:
+  git-leak:
+    build: .
+    container_name: git-leak-ctf
+    ports:
+      - "5007:80"
+    restart: unless-stopped

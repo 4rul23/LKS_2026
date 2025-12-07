@@ -1,0 +1,7 @@
+services:
+  info-chain:
+    build: .
+    container_name: info-chain-ctf
+    ports:
+      - "5009:5009"
+    restart: unless-stopped

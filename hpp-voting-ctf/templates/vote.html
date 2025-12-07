@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cast Your Vote</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['DM Sans', 'system-ui'] },
+                    colors: {
+                        corp: { blue: '#1e40af', light: '#3b82f6', bg: '#f8fafc', card: '#ffffff', border: '#e2e8f0' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-corp-bg min-h-screen font-sans text-gray-800">
+    <nav class="bg-white border-b border-corp-border">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-corp-blue rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold">PT</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900">PT Maju Bersama</p>
+                        <p class="text-xs text-gray-500">Human Resources Portal</p>
+                    </div>
+                </a>
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-8 h-8 bg-corp-light rounded-full flex items-center justify-center text-white text-xs font-bold">
+                        {{ current_employee.name[:2].upper() }}</div>
+                    <p class="text-sm font-medium">{{ current_employee.name }}</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-xl mx-auto px-6 py-12">
+        <a href="/" class="inline-flex items-center gap-2 text-gray-500 hover:text-corp-blue mb-8 text-sm transition">
+            ← Back to Nominations
+        </a>
+
+        <div class="bg-white rounded-2xl border border-corp-border overflow-hidden">
+            <div class="p-6 border-b border-corp-border bg-gray-50">
+                <h1 class="text-xl font-bold text-gray-900">Confirm Your Vote</h1>
+                <p class="text-gray-600 text-sm mt-1">Review your selection before submitting</p>
+            </div>
+
+            <div class="p-6">
+                <div class="flex items-center gap-4 p-4 bg-corp-blue/5 rounded-xl mb-6">
+                    <div
+                        class="w-14 h-14 bg-gradient-to-br from-corp-blue to-corp-light rounded-full flex items-center justify-center text-white text-lg font-bold">
+                        {{ candidate.name[:2].upper() }}</div>
+                    <div>
+                        <p class="text-sm text-gray-500">Voting for</p>
+                        <h2 class="text-lg font-semibold text-gray-900">{{ candidate.name }}</h2>
+                        <p class="text-sm text-gray-600">{{ candidate.department }} Department</p>
+                    </div>
+                </div>
+
+                <form action="/vote" method="POST">
+                    <input type="hidden" name="candidate_id" value="{{ candidate_id }}">
+                    <input type="hidden" name="voter_id" value="{{ voter_id }}">
+
+                    <div class="bg-gray-50 rounded-xl p-4 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Your Employee ID</span>
+                            <span class="font-medium">{{ voter_id }}</span>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-3 bg-corp-blue hover:bg-corp-blue/90 text-white font-semibold rounded-xl transition">
+                        Submit Vote
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

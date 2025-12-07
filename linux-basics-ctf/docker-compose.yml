@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  linux-basics-ctf:
+    build: .
+    ports:
+      - "0.0.0.0:2222:22"
+    restart: unless-stopped
+    hostname: ctf-server

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['DM Sans', 'system-ui'] },
+                    colors: { corp: { blue: '#1e40af', light: '#3b82f6', bg: '#f8fafc', border: '#e2e8f0' } }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-corp-bg min-h-screen font-sans text-gray-800">
+    <nav class="bg-white border-b border-corp-border">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-corp-blue rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold">PT</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900">PT Maju Bersama</p>
+                        <p class="text-xs text-gray-500">Human Resources Portal</p>
+                    </div>
+                </a>
+                <div class="flex items-center gap-6">
+                    <a href="/" class="text-sm text-gray-600 hover:text-corp-blue transition">Voting</a>
+                    <a href="/leaderboard" class="text-sm text-corp-blue font-medium">Leaderboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto px-6 py-10">
+        <h1 class="text-2xl font-bold text-gray-900 mb-8">Current Standings</h1>
+
+        <div class="bg-white rounded-2xl border border-corp-border overflow-hidden">
+            <table class="w-full">
+                <thead class="bg-gray-50 border-b border-corp-border">
+                    <tr>
+                        <th class="text-left py-4 px-6 text-sm font-medium text-gray-500">Rank</th>
+                        <th class="text-left py-4 px-6 text-sm font-medium text-gray-500">Employee</th>
+                        <th class="text-left py-4 px-6 text-sm font-medium text-gray-500">Department</th>
+                        <th class="text-right py-4 px-6 text-sm font-medium text-gray-500">Votes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emp_id, emp in employees %}
+                    <tr class="border-b border-corp-border last:border-0 hover:bg-gray-50">
+                        <td class="py-4 px-6">
+                            {% if loop.index == 1 %}
+                            <span class="text-2xl">🥇</span>
+                            {% elif loop.index == 2 %}
+                            <span class="text-2xl">🥈</span>
+                            {% elif loop.index == 3 %}
+                            <span class="text-2xl">🥉</span>
+                            {% else %}
+                            <span class="text-gray-400 font-medium">#{{ loop.index }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-4 px-6">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-corp-blue to-corp-light rounded-full flex items-center justify-center text-white text-sm font-bold">
+                                    {{ emp.name[:2].upper() }}</div>
+                                <span class="font-medium">{{ emp.name }}</span>
+                            </div>
+                        </td>
+                        <td class="py-4 px-6 text-gray-600">{{ emp.department }}</td>
+                        <td class="py-4 px-6 text-right font-bold text-corp-blue">{{ emp.votes }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>

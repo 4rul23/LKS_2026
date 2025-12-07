@@ -1,0 +1,7 @@
+services:
+  hpp-voting:
+    build: .
+    container_name: hpp-voting-ctf
+    ports:
+      - "5008:5008"
+    restart: unless-stopped

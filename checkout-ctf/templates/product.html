@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - VAPOR GAMES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'system-ui'] },
+                    colors: {
+                        vapor: { lime: '#84cc16', teal: '#14b8a6', dark: '#0c0c0c', card: '#171717', border: '#262626' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .steam-gradient {
+            background: linear-gradient(180deg, #1a1a2e 0%, #0c0c0c 100%);
+        }
+    </style>
+</head>
+
+<body class="steam-gradient min-h-screen font-sans text-gray-100">
+    <nav class="bg-black/60 backdrop-blur border-b border-vapor-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between h-14 items-center">
+                <a href="/" class="flex items-center gap-2">
+                    <div class="text-vapor-lime text-2xl">▸</div>
+                    <span class="text-xl font-bold">VAPOR</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-8">
+        <a href="/" class="inline-flex items-center gap-2 text-gray-400 hover:text-vapor-lime mb-6 text-sm transition">
+            ← Back to Store
+        </a>
+
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-vapor-card rounded-lg border border-vapor-border overflow-hidden">
+                    <div
+                        class="h-64 {% if product.image == 'legendary' %}bg-gradient-to-br from-amber-900/30 to-orange-900/20{% elif product.image == 'season' %}bg-gradient-to-br from-emerald-900/30 to-teal-900/20{% else %}bg-gradient-to-br from-blue-900/30 to-indigo-900/20{% endif %} flex items-center justify-center">
+                        <span class="text-8xl opacity-50">{% if product.image == 'legendary' %}🗝️{% elif product.image
+                            == 'season' %}⭐{% else %}👑{% endif %}</span>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <h2 class="text-lg font-semibold mb-3 text-gray-300">About This Content</h2>
+                    <p class="text-gray-400 leading-relaxed">{{ product.description }} This digital content will be
+                        delivered instantly to your account upon purchase.</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2">
+                <div class="bg-vapor-card rounded-lg border border-vapor-border p-6 sticky top-20">
+                    <span class="bg-vapor-lime/20 text-vapor-lime text-xs px-2 py-1 rounded mb-4 inline-block">DIGITAL
+                        CONTENT</span>
+                    <h1 class="text-2xl font-bold mb-2">{{ product.name }}</h1>
+
+                    <div class="py-4 border-y border-vapor-border my-4">
+                        <p class="text-3xl font-bold text-vapor-lime">Rp {{ "{:,}".format(product.price) }}</p>
+                    </div>
+
+                    <a href="/checkout/{{ product.id }}"
+                        class="block w-full text-center py-3 bg-vapor-lime hover:bg-lime-400 text-black font-bold rounded transition mb-3">
+                        Purchase
+                    </a>
+                    <button
+                        class="block w-full text-center py-3 border border-vapor-border hover:bg-vapor-border text-white font-medium rounded transition">
+                        Add to Wishlist
+                    </button>
+
+                    <div class="mt-6 pt-4 border-t border-vapor-border text-xs text-gray-500 space-y-2">
+                        <p>✓ Instant delivery</p>
+                        <p>✓ Cross-platform compatible</p>
+                        <p>✓ 24/7 support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kode Labs — Developer Tools & APIs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'system-ui'],
+                        mono: ['IBM Plex Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white min-h-screen font-sans text-gray-900">
+    <nav class="border-b border-gray-100">
+        <div class="max-w-5xl mx-auto px-6 py-5">
+            <div class="flex justify-between items-center">
+                <a href="/" class="flex items-center gap-2">
+                    <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="8" fill="#000" />
+                        <path d="M10 22V10h3l5 8V10h3v12h-3l-5-8v8h-3z" fill="#fff" />
+                    </svg>
+                    <span class="text-xl font-semibold">Kode Labs</span>
+                </a>
+                <div class="flex items-center gap-8 text-sm">
+                    <a href="/products" class="text-gray-600 hover:text-gray-900 transition">Products</a>
+                    <a href="/docs" class="text-gray-600 hover:text-gray-900 transition">Documentation</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900 transition">Pricing</a>
+                    <a href="#"
+                        class="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition">Sign
+                        In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="py-24 px-6">
+            <div class="max-w-5xl mx-auto">
+                <div class="max-w-2xl">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-600 mb-6">
+                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                        All systems operational
+                    </div>
+                    <h1 class="text-5xl font-bold leading-tight mb-6">
+                        APIs and tools for modern developers
+                    </h1>
+                    <p class="text-xl text-gray-600 leading-relaxed mb-8">
+                        Build faster with our suite of developer tools. Authentication, payments, analytics — everything
+                        you need in one place.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="/docs"
+                            class="px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition">
+                            Read the docs
+                        </a>
+                        <a href="#"
+                            class="px-6 py-3 bg-gray-100 text-gray-900 font-medium rounded-lg hover:bg-gray-200 transition">
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-6 bg-gray-50 border-y border-gray-100">
+            <div class="max-w-5xl mx-auto">
+                <div class="font-mono text-sm bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto">
+                    <div class="flex items-center gap-2 text-gray-500 mb-4">
+                        <span class="text-green-400">$</span> Quick start example
+                    </div>
+                    <pre class="text-green-400">npm install @kodelabs/sdk</pre>
+                    <pre class="mt-4 text-gray-300">
+import { KodeLabs } from '@kodelabs/sdk';
+
+const client = new KodeLabs({
+  apiKey: process.env.KODE_API_KEY
+});
+
+const user = await client.auth.verify(token);
+console.log(user);
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold mb-12">Built for scale</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <div class="text-4xl font-bold mb-2">99.99%</div>
+                        <div class="text-gray-600">Uptime SLA</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold mb-2">&lt;50ms</div>
+                        <div class="text-gray-600">Global latency</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold mb-2">10M+</div>
+                        <div class="text-gray-600">API calls/day</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 border-t border-gray-100">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold mb-4">Enterprise ready</h2>
+                <p class="text-gray-600 mb-12 max-w-xl">SOC 2 Type II certified. GDPR compliant. Built with
+                    security-first architecture.</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 border border-gray-200 rounded-xl">
+                        <h3 class="font-semibold text-lg mb-2">Authentication</h3>
+                        <p class="text-gray-600 text-sm">OAuth 2.0, SAML, passwordless login, MFA support out of the
+                            box.</p>
+                    </div>
+                    <div class="p-6 border border-gray-200 rounded-xl">
+                        <h3 class="font-semibold text-lg mb-2">Webhooks</h3>
+                        <p class="text-gray-600 text-sm">Real-time event notifications with automatic retries and
+                            logging.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-8 px-6 border-t border-gray-100">
+        <div class="max-w-5xl mx-auto flex justify-between items-center text-sm text-gray-500">
+            <p>© 2024 Kode Labs Inc.</p>
+            <p class="text-xs">STELK CSC Challenge</p>
+        </div>
+    </footer>
+</body>
+
+</html>

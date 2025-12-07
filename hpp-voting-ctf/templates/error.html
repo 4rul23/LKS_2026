@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['DM Sans', 'system-ui'] },
+                    colors: { corp: { blue: '#1e40af', bg: '#f8fafc', border: '#e2e8f0' } }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-corp-bg min-h-screen font-sans text-gray-800">
+    <nav class="bg-white border-b border-corp-border">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <a href="/" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-corp-blue rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold">PT</span>
+                </div>
+                <p class="font-semibold text-gray-900">PT Maju Bersama</p>
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-xl mx-auto px-6 py-16 text-center">
+        <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-red-600 text-4xl">⚠</span>
+        </div>
+
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Security Alert</h1>
+        <p class="text-gray-600 mb-8">{{ message }}</p>
+
+        <a href="/"
+            class="inline-block px-6 py-3 bg-corp-blue text-white font-medium rounded-xl hover:bg-corp-blue/90 transition">
+            Return to Voting
+        </a>
+    </main>
+</body>
+
+</html>

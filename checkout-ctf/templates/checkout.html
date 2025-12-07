@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - VAPOR GAMES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'system-ui'] },
+                    colors: {
+                        vapor: { lime: '#84cc16', dark: '#0c0c0c', card: '#171717', border: '#262626' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .steam-gradient {
+            background: linear-gradient(180deg, #1a1a2e 0%, #0c0c0c 100%);
+        }
+    </style>
+</head>
+
+<body class="steam-gradient min-h-screen font-sans text-gray-100">
+    <nav class="bg-black/60 backdrop-blur border-b border-vapor-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between h-14 items-center">
+                <a href="/" class="flex items-center gap-2">
+                    <div class="text-vapor-lime text-2xl">▸</div>
+                    <span class="text-xl font-bold">VAPOR</span>
+                </a>
+                <span class="text-sm text-gray-400">🔒 Secure Checkout</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-2xl mx-auto px-6 py-12">
+        <h1 class="text-2xl font-bold mb-8">Complete Your Purchase</h1>
+
+        <div class="bg-vapor-card rounded-lg border border-vapor-border overflow-hidden">
+            <div class="p-6 border-b border-vapor-border">
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 rounded bg-vapor-dark flex items-center justify-center text-2xl">
+                        {% if product.image == 'legendary' %}🗝️{% elif product.image == 'season' %}⭐{% else %}👑{%
+                        endif %}
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold">{{ product.name }}</h3>
+                        <p class="text-sm text-gray-500">Digital Content</p>
+                    </div>
+                    <p class="font-bold text-vapor-lime text-lg">Rp {{ "{:,}".format(product.price) }}</p>
+                </div>
+            </div>
+
+            <form action="/purchase" method="POST" class="p-6">
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <input type="hidden" name="price" value="{{ product.price }}">
+
+                <div class="space-y-4 mb-6">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Email</label>
+                        <input type="email" placeholder="gamer@example.com"
+                            class="w-full px-4 py-3 bg-vapor-dark border border-vapor-border rounded text-white placeholder-gray-600 focus:outline-none focus:border-vapor-lime transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Card Number</label>
+                        <input type="text" placeholder="4242 4242 4242 4242"
+                            class="w-full px-4 py-3 bg-vapor-dark border border-vapor-border rounded text-white placeholder-gray-600 focus:outline-none focus:border-vapor-lime transition">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Expiry</label>
+                            <input type="text" placeholder="MM/YY"
+                                class="w-full px-4 py-3 bg-vapor-dark border border-vapor-border rounded text-white placeholder-gray-600 focus:outline-none focus:border-vapor-lime transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">CVV</label>
+                            <input type="text" placeholder="123"
+                                class="w-full px-4 py-3 bg-vapor-dark border border-vapor-border rounded text-white placeholder-gray-600 focus:outline-none focus:border-vapor-lime transition">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between py-4 border-t border-vapor-border mb-6">
+                    <span class="text-gray-400">Total</span>
+                    <span class="font-bold text-xl">Rp {{ "{:,}".format(product.price) }}</span>
+                </div>
+
+                <button type="submit"
+                    class="w-full py-4 bg-vapor-lime hover:bg-lime-400 text-black font-bold rounded transition">
+                    Complete Purchase
+                </button>
+            </form>
+        </div>
+
+        <p class="text-center text-gray-600 text-xs mt-6">🔒 Secured by 256-bit encryption</p>
+    </main>
+</body>
+
+</html>

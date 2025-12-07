@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  http:
+    build: ./services/http
+    container_name: protocol-ctf-http
+    ports:
+      - "8082:80"
+    volumes:
+      - ./flags:/flags:ro
+
+  ftp:
+    build: ./services/ftp
+    container_name: protocol-ctf-ftp
+    ports:
+      - "2121:21"
+    volumes:
+      - ./flags:/home/ftp/files:ro
+
+  ssh:
+    build: ./services/ssh
+    container_name: protocol-ctf-ssh
+    ports:
+      - "2222:22"
+    volumes:
+      - ./flags:/home/ctf/files:ro
+
+  dns:
+    build: ./services/dns
+    container_name: protocol-ctf-dns
+    ports:
+      - "5353:53/udp"
+      - "5353:53/tcp"
+    volumes:
+      - ./flags:/flags:ro
+
+  smtp:
+    build: ./services/smtp
+    container_name: protocol-ctf-smtp
+    ports:
+      - "2525:25"
+
+  smb:
+    build: ./services/smb
+    container_name: protocol-ctf-smb
+    ports:
+      - "1445:445"
+    volumes:
+      - ./flags:/share:ro

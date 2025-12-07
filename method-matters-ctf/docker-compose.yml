@@ -1,0 +1,7 @@
+services:
+  method-matters:
+    build: .
+    container_name: method-matters-ctf
+    ports:
+      - "5005:5005"
+    restart: unless-stopped

@@ -1,0 +1,2 @@
+# Place holder for pubkey COPY if needed
+COPY authorized_keys /authorized_keys

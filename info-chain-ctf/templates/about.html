@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - NovaTech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Space Grotesk', 'system-ui'] },
+                    colors: { nova: { orange: '#f97316', coral: '#fb923c', dark: '#18181b', gray: '#27272a' } }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-nova-dark min-h-screen font-sans text-gray-100">
+    <nav class="bg-nova-dark/90 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="flex items-center gap-2">
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-nova-orange to-nova-coral rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">N</span>
+                    </div>
+                    <span class="text-xl font-bold">NovaTech</span>
+                </a>
+                <div class="flex items-center gap-8">
+                    <a href="/about" class="text-sm text-white font-medium">About</a>
+                    <a href="/careers" class="text-sm text-gray-400 hover:text-white transition">Careers</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-20">
+        <h1 class="text-4xl font-bold mb-8">About NovaTech</h1>
+        <div class="prose prose-invert">
+            <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                Founded in 2019, NovaTech is on a mission to democratize cloud infrastructure. We believe that every
+                developer, from indie hackers to enterprise teams, deserves access to world-class infrastructure.
+            </p>
+            <p class="text-gray-400 text-lg leading-relaxed">
+                With over $50M in Series B funding and a team of 150+ engineers across 12 countries, we're building the
+                future of cloud computing.
+            </p>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+ftp_user=anonymous
+ftp_pass=anon123

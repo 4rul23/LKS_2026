@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAPOR GAMES - Digital Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'system-ui'] },
+                    colors: {
+                        vapor: {
+                            lime: '#84cc16',
+                            teal: '#14b8a6',
+                            dark: '#0c0c0c',
+                            card: '#171717',
+                            border: '#262626'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .steam-gradient {
+            background: linear-gradient(180deg, #1a1a2e 0%, #0c0c0c 100%);
+        }
+
+        .lime-glow {
+            box-shadow: 0 0 20px rgba(132, 204, 22, 0.15);
+        }
+    </style>
+</head>
+
+<body class="steam-gradient min-h-screen font-sans text-gray-100">
+    <nav class="bg-black/60 backdrop-blur border-b border-vapor-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between h-14 items-center">
+                <div class="flex items-center gap-8">
+                    <a href="/" class="flex items-center gap-2">
+                        <div class="text-vapor-lime text-2xl">▸</div>
+                        <span class="text-xl font-bold">VAPOR</span>
+                    </a>
+                    <div class="hidden md:flex items-center gap-6 text-sm">
+                        <a href="#" class="text-white font-medium">Store</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">Library</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">Community</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">Support</a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-vapor-lime text-sm font-medium">Wallet: Rp 0</div>
+                    <div class="w-8 h-8 bg-vapor-card rounded border border-vapor-border"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-8 px-6 border-b border-vapor-border bg-black/30">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-2xl font-bold text-vapor-lime">Featured & Recommended</h1>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for id, product in products.items() %}
+            <a href="/product/{{ product.id }}"
+                class="group bg-vapor-card rounded-lg overflow-hidden border border-vapor-border hover:border-vapor-lime/50 transition-all hover:-translate-y-1 lime-glow">
+                <div
+                    class="h-40 {% if product.image == 'legendary' %}bg-gradient-to-br from-amber-900/30 to-orange-900/20{% elif product.image == 'season' %}bg-gradient-to-br from-emerald-900/30 to-teal-900/20{% else %}bg-gradient-to-br from-blue-900/30 to-indigo-900/20{% endif %} flex items-center justify-center">
+                    <span class="text-5xl opacity-60">{% if product.image == 'legendary' %}🗝️{% elif product.image ==
+                        'season' %}⭐{% else %}👑{% endif %}</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-white group-hover:text-vapor-lime transition mb-1">{{ product.name }}
+                    </h3>
+                    <p class="text-gray-500 text-xs mb-3 line-clamp-1">{{ product.description }}</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-vapor-lime/20 text-vapor-lime text-xs px-2 py-1 rounded">DIGITAL</span>
+                        <span class="font-bold text-white">Rp {{ "{:,}".format(product.price) }}</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-vapor-border mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2 text-gray-500 text-sm">
+                <span class="text-vapor-lime">▸</span>
+                <span>© 2024 Vapor Corporation.</span>
+            </div>
+            <p class="text-gray-600 text-xs">STELK CSC Challenge</p>
+        </div>
+    </footer>
+</body>
+
+</html>

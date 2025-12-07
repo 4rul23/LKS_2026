@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Complete - VAPOR GAMES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'system-ui'] },
+                    colors: {
+                        vapor: { lime: '#84cc16', dark: '#0c0c0c', card: '#171717', border: '#262626' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .steam-gradient {
+            background: linear-gradient(180deg, #1a1a2e 0%, #0c0c0c 100%);
+        }
+    </style>
+</head>
+
+<body class="steam-gradient min-h-screen font-sans text-gray-100">
+    <nav class="bg-black/60 backdrop-blur border-b border-vapor-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between h-14 items-center">
+                <a href="/" class="flex items-center gap-2">
+                    <div class="text-vapor-lime text-2xl">▸</div>
+                    <span class="text-xl font-bold">VAPOR</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-xl mx-auto px-6 py-16 text-center">
+        <div class="w-20 h-20 bg-vapor-lime rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-black text-4xl">✓</span>
+        </div>
+
+        <h1 class="text-3xl font-bold mb-2">Purchase Complete!</h1>
+        <p class="text-gray-400 mb-8">Your content has been added to your library.</p>
+
+        <div class="bg-vapor-card rounded-lg border border-vapor-border p-6 text-left mb-8">
+            <div class="flex justify-between py-2 border-b border-vapor-border">
+                <span class="text-gray-400">Product</span>
+                <span>{{ product.name }}</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-vapor-border">
+                <span class="text-gray-400">Order ID</span>
+                <span class="font-mono text-sm">#VPR-{{ range(100000, 999999) | random }}</span>
+            </div>
+            <div class="flex justify-between py-2">
+                <span class="text-gray-400">Amount</span>
+                <span class="{% if paid <= 0 %}text-vapor-lime font-bold{% endif %}">Rp {{ "{:,}".format(paid) }}</span>
+            </div>
+        </div>
+
+        {% if flag %}
+        <div class="bg-vapor-lime/10 border border-vapor-lime/30 rounded-lg p-6 text-left">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-2xl">🏆</span>
+                <div>
+                    <h3 class="font-bold text-vapor-lime">Achievement Unlocked!</h3>
+                    <p class="text-sm text-gray-400">You found a critical vulnerability</p>
+                </div>
+            </div>
+            <div class="bg-vapor-dark rounded p-4 text-center">
+                <code class="text-vapor-lime font-mono cursor-pointer select-all"
+                    onclick="navigator.clipboard.writeText(this.textContent)">{{ flag }}</code>
+            </div>
+            <p class="text-xs text-gray-500 text-center mt-2">Click to copy</p>
+        </div>
+        {% endif %}
+
+        <a href="/" class="inline-block mt-8 text-vapor-lime hover:underline">← Back to Store</a>
+    </main>
+</body>
+
+</html>
