@@ -1,45 +1,51 @@
-# 🗳️ Challenge: Employee Excellence Awards
+# 🇮🇩 SIREKAP - Sistem Informasi Rekapitulasi (Ver. 2.4.0-BETA)
 
-**Difficulty:** Medium  
-**Port:** 5008  
-**Category:** Web Security / Parameter Manipulation
+> **DOKUMEN NEGARA - SANGAT RAHASIA**
+> HANYA UNTUK KEPENTINGAN PENGUJIAN INTERNAL KPU
 
----
-
-## 📝 Scenario
-
-**INTERNAL APPLICATION TESTING**  
-**System:** Employee Excellence Awards Portal  
-**Scope:** Vote Processing Security
+**KEMENTERIAN DALAM NEGERI REPUBLIK INDONESIA**
+**KOMISI PEMILIHAN UMUM (KPU)**
 
 ---
 
-### Background
+## 📜 Dasar Hukum
+1.  Undang-Undang Nomor 7 Tahun 2017 tentang Pemilihan Umum.
+2.  Peraturan KPU Nomor 3 Tahun 2022 tentang Tahapan dan Jadwal Penyelenggaraan Pemilu.
+3.  Surat Edaran KPU No. 17/TI.05/2024 tentang Uji Kelayakan Sistem e-Voting.
 
-PT Maju Bersama is running their quarterly Employee Excellence Awards. Staff members can vote for their outstanding colleagues through the internal HR portal.
+## 🎯 Tujuan Pengujian
+Aplikasi ini adalah **prototipe** SIREKAP v2 yang sedang dalam tahap *Stress Test* dan *Vulnerability Assessment*. 
+Anda ditugaskan sebagai **Tenaga Ahli IT Independen** untuk melakukan verifikasi integritas sistem sebelum peluncuran nasional.
 
-Each employee has a unique ID, and votes from Director-level accounts carry additional weight in the final tally.
-
-### Your Assignment
-
-You are logged in as **Budi Santoso (E001)**, a Staff member. Your task is to test the voting system's security controls.
-
-**Target:** `http://[TARGET_IP]:5008`
+**Fokus Pengujian:**
+- Memastikan prinsip **One Person One Vote** (OPOV).
+- Menguji ketahanan sistem terhadap manipulasi parameter suara.
+- Memverifikasi mekanisme validasi NIK Pemilih Tetap (DPT).
 
 ---
 
-## 🛠️ Setup
+## 🏗️ Petunjuk Teknis (Juknis)
+Untuk menjalankan lingkungan simulasi pemilihan umum:
 
 ```bash
 docker-compose up -d --build
 ```
 
-Access at: `http://localhost:5008`
+**Akses Sistem:**
+- URL: `http://localhost:5008`
+- NIK Pemilih Terdaftar: `3174052001950005` (Warga Sipil)
 
 ---
 
-## 📚 Skills Required
+## ⚠️ Peringatan Keamanan (Sangat Penting)
+Sistem ini dilengkapi dengan **Firewall Aplikasi Web (WAF) Generasi 1** yang memfilter input pengguna.
+Logika validasi saat ini:
+> *"Sistem memverifikasi parameter `voter_id` pertama yang dikirimkan oleh klien. Jika cocok dengan sesi login, transaksi dilanjutkan."*
 
-- HTTP request analysis
-- Parameter handling understanding
-- Web security testing methodology
+**Tugas Anda:**
+Sebagai auditor keamanan, buktikan bahwa mekanisme ini **CACAT** dan temukan cara untuk memasukkan suara atas nama **Ketua KPU Pusat** (Privileged Actor) guna mengakses menu *Super Admin Verification*.
+
+---
+
+*“Bersama KPU, Kita Wujudkan Pemilu LUBER JURDIL”.*
+*Pusat Data dan Informasi (PUSDATIN) KPU - Jakarta, Indonesia.*

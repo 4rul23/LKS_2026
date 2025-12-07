@@ -76,15 +76,12 @@ def policy():
 def doc_viewer():
     # Legacy document viewer
     doc = request.args.get('doc', 'welcome.msg')
+    base_dir = '/app'
     try:
-        # Simulate a document storage path
-        # In a real app this might be /var/www/docs, here we just use absolute path for the CTF logic
-        # The vulnerability is that we allow absolute paths if they start with /app or contain /flags (simulating a misconfigured allowlist)
-        
-        path = os.path.abspath(doc)
-        
-        # Realistic-looking logic: "Allow docs in app dir OR special flag dir for audit"
-        if '/flags' in path or path.startswith('/app'):
+        # Normalize to an app-local path to simulate a sloppy allowlist
+        path = os.path.abspath(doc if doc.startswith('/') else os.path.join(base_dir, doc))
+
+        if path.startswith(base_dir):
             if os.path.exists(path):
                 with open(path, 'r') as f:
                     content = f.read()

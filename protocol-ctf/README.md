@@ -1,73 +1,106 @@
-# Protocol Pentest Lab - CTF Challenge
+# 👾 Mission: Protocol Breach // Stellaron Hunter Archive
 
-## Story
-You are a red team operator tasked with infiltrating **Trailblazer Corp**'s perimeter network. The company has exposed several legacy services due to cost-cutting. Your goal: traverse the attack surface using common protocols, chaining exploits to retrieve the **MASTER FLAG** hidden deep in the infrastructure.
+> **Incoming encrypted transmission...**
+> **Sender:** Silver Wolf (Hacker, Stellaron Hunters)
+> **Subject:** New Playground Found
 
-This lab introduces **real-world protocol abuse** techniques used in CTFs and pentests:
-- **HTTP**: Web enumeration & traversal
-- **FTP**: Anonymous access & brute-force
-- **SSH**: Credential reuse & key auth
-- **DNS**: Zone transfer & cache snooping
-- **SMTP**: Open relay & VRFY/EXPN
-- **SMB**: Null sessions & share enumeration
+---
 
-**Difficulty**: Beginner-Intermediate | **Time**: 30-60 mins
+## 💬 Mission Brief
+"Yo, newbie. Kafka told me to drag you along for this one.
 
-## Architecture (Realistic Perimeter DMZ)
+We found a dusty old corp called **Trailblazer Corp**. Their security is a joke—literal ancient tech held together by hope and duct tape. Elio's script says there's a **Master Flag** hidden deep inside, but I'm too busy grinding my rank in Aetherium Wars to deal with their lvl 1 ferrets.
+
+So, I'm outsourcing the fun to you. I already scanned their perimeter while you were AFK getting coffee. Here’s the map. Don't mess it up, or I’ll ban your account."
+
+---
+
+## 🧭 Recon Snapshot (Scan by Silver Wolf)
+
+"I ran a quick scan on their local network. Check it out using your sad little terminal."
+
+```bash
+# silver_wolf@stellaron:~/recon$ nmap -sC -sV -p- trailblazer.corp
+
+Aether Editing... 100% [==================>]
+TARGET: trailblazer.corp (127.0.0.1)
+
+PORT      STATE SERVICE  VERSION & NOTES
+8082/tcp  open  http     Flask Portal
+2121/tcp  open  ftp      vsftpd 3.0.3
+2222/tcp  open  ssh      OpenSSH 8.9p1
+5354/tcp  open  domain   BIND 9.18
+2525/tcp  open  smtp     Python smtpd
+1445/tcp  open  netbios  Samba smbd 4.x
+
+Nmap done: 1 IP address (1 host up) scanned in 1.337 seconds
 ```
-Internet ─┬─ HTTP (80) ── FTP (21) ── SSH (22)
-          ├─ DNS (53) ─── SMTP (25) ─ SMB (445)
-```
-- Services interconnected via Docker network (simulating internal routing).
-- Flags chained: Each protocol yields creds/hints for the next.
-- Vulns based on **common misconfigs** (no zero-days).
 
-## Quick Start
+---
+
+## 🎮 Game Guide (Walkthrough)
+
+"Keep getting stuck? Fine, I'll backseat game for a bit. Here’s the combo chain:"
+
+1.  **Level 1: HTTP (Port 8082)**
+    *   **Objective:** Find the FTP creds.
+    *   **Hint:** The `/docs/` endpoint reads files. Try reading `/app/config.txt`.
+    *   **Loot:** First Flag + FTP Creds.
+
+2.  **Level 2: FTP (Port 2121)**
+    *   **Objective:** Get the SSH Key.
+    *   **Hint:** Login as `anonymous`. Download `ssh_key.pem`. The passphrase is weak—literally written in the file comments.
+    *   **Loot:** SSH Private Key.
+
+3.  **Level 3: SSH (Port 2222)**
+    *   **Objective:** Breaching the server.
+    *   **Hint:** User is `sysadmin`. Use the key you stole.
+    *   **Loot:** SSH Flag + Hints about SMTP.
+
+4.  **Level 4: DNS (Port 5354)**
+    *   **Objective:** Map the network.
+    *   **Hint:** Their DNS is leaking everything. Try a Zone Transfer (`dig AXFR`).
+    *   **Loot:** DNS Flag + SMB Server Info.
+
+5.  **Level 5: SMTP (Port 2525)**
+    *   **Objective:** Social Engineering via VRFY.
+    *   **Hint:** The server verifies users. Ask it about `smbuser`.
+    *   **Loot:** SMB Password (leaked in response).
+
+6.  **Boss Room: SMB (Port 1445)**
+    *   **Objective:** The Treasure.
+    *   **Hint:** Connect to `//localhost/finance_backup` with the credentials you farmed.
+    *   **Reward:** **MASTER FLAG**.
+
+---
+
+## 🏆 Achievement List (Flags)
+
+| Challenge | Flag Format | Status |
+| :--- | :--- | :--- |
+| **HTTP** | `STELKCSC{http_enum_lfi}` | 🔓 Locked |
+| **FTP** | `STELKCSC{ftp_anon_brute}` | 🔓 Locked |
+| **SSH** | `STELKCSC{ssh_key_reuse}` | 🔓 Locked |
+| **DNS** | `STELKCSC{dns_zone_xfer}` | 🔓 Locked |
+| **SMTP** | `STELKCSC{smtp_vrfy_relay}` | 🔓 Locked |
+| **SMB** | `STELKCSC{smb_null_shares}` | 🔓 Locked |
+| **ULTIMATE** | `STELKCSC{protocol_chain_mastery_2025}` | 🔓 Locked |
+
+---
+
+## 🛠️ Setup Instructions (For Noobs)
+
+"Just run this. If it fails, restart your router or something."
+
 ```bash
 cd protocol-ctf
 docker-compose up --build -d
 ```
 
-**Targets** (localhost):
-| Protocol | Port | Tool Examples |
-|----------|------|---------------|
-| HTTP     | 8082 | curl, browser |
-| FTP      | 2121 | ftp, nmap |
-| SSH      | 2222 | ssh, hydra |
-| DNS      | 5354 | dig, nslookup |
-| SMTP     | 2525 | telnet, swaks |
-| SMB      | 1445 | smbclient, enum4linux |
-
+**Clean up your mess:**
 ```bash
-docker-compose down -v  # Cleanup
+docker-compose down -v
 ```
 
-## Walkthrough (Spoiler-Free Hints)
-1. **HTTP**: Enumerate directories. Find FTP creds in `/app/config.txt` via LFI (e.g. `?doc=/app/config.txt`).
-2. **FTP**: Login anonymous. Download `ssh_key.pem` & weak pass hint.
-3. **SSH**: Use key + pass. `cat /home/user/flag.txt` & grep for SMTP user.
-4. **DNS**: `dig AXFR @127.0.0.1 -p 5354 trailblazer.corp`. Get SMB share.
-
-5. **SMTP**: `VRFY smbuser@trailblazer.corp` for pass. Relay test.
-6. **SMB**: `smbclient //localhost:1445/share -N` or with creds. MASTER FLAG!
-
-## Flags
-- HTTP: `STELKCSC{http_enum_lfi}`
-- FTP: `STELKCSC{ftp_anon_brute}`
-- SSH: `STELKCSC{ssh_key_reuse}`
-- DNS: `STELKCSC{dns_zone_xfer}`
-- SMTP: `STELKCSC{smtp_vrfy_relay}`
-- SMB: `STELKCSC{smb_null_shares}`
-- **MASTER**: `STELKCSC{protocol_chain_mastery_2025}` (combine insights)
-
-## Real-World Relevance
-- Mirrors **perimeter hardening failures** (e.g., Equifax breach chaining).
-- Tools: nmap, gobuster, hydra, crackmapexec.
-- **Safety**: Local-only. No internet exposure.
-
-## Troubleshooting
-- Logs: `docker-compose logs service`
-- Rebuild: `docker-compose up --build`
-- Ports conflict? Edit `ports:` mappings.
-
-**Enjoy the hunt!** 🕵️‍♂️
+"Good luck, partner. Don't disappoint me." 
+*- Silver Wolf*

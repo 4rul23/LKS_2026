@@ -1,0 +1,2 @@
+SMTP_USER=smbuser
+SMTP_DOMAIN=trailblazer.corp

