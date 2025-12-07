@@ -1,0 +1,21 @@
+$TTL    604800
+@       IN      SOA     trailblazer.corp. root.trailblazer.corp. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      ns.trailblazer.corp.
+@       IN      A       127.0.0.1
+ns      IN      A       127.0.0.1
+
+; Target Services
+intranet    IN      A       127.0.0.1
+mail        IN      A       127.0.0.1
+smb         IN      A       127.0.0.1
+
+; Flag/Hint Records
+smb         IN      TXT     "public share accessible anonymously or smbuser:smbpass123"
+mail        IN      TXT     "v=spf1 mx -all"
+flag        IN      TXT     "STELKCSC{dns_zone_xfer}"

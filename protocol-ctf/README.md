@@ -31,10 +31,10 @@ docker-compose up --build -d
 **Targets** (localhost):
 | Protocol | Port | Tool Examples |
 |----------|------|---------------|
-| HTTP     | 8080 | curl, browser |
+| HTTP     | 8082 | curl, browser |
 | FTP      | 2121 | ftp, nmap |
 | SSH      | 2222 | ssh, hydra |
-| DNS      | 5353 | dig, nslookup |
+| DNS      | 5354 | dig, nslookup |
 | SMTP     | 2525 | telnet, swaks |
 | SMB      | 1445 | smbclient, enum4linux |
 
@@ -43,10 +43,11 @@ docker-compose down -v  # Cleanup
 ```
 
 ## Walkthrough (Spoiler-Free Hints)
-1. **HTTP**: Enumerate directories. Find FTP creds in `/admin/config.txt` via LFI.
+1. **HTTP**: Enumerate directories. Find FTP creds in `/app/config.txt` via LFI (e.g. `?doc=/app/config.txt`).
 2. **FTP**: Login anonymous. Download `ssh_key.pem` & weak pass hint.
 3. **SSH**: Use key + pass. `cat /home/user/flag.txt` & grep for SMTP user.
-4. **DNS**: `dig AXFR @127.0.0.1 -p 5353 trailblazer.corp`. Get SMB share.
+4. **DNS**: `dig AXFR @127.0.0.1 -p 5354 trailblazer.corp`. Get SMB share.
+
 5. **SMTP**: `VRFY smbuser@trailblazer.corp` for pass. Relay test.
 6. **SMB**: `smbclient //localhost:1445/share -N` or with creds. MASTER FLAG!
 

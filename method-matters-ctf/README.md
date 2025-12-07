@@ -1,57 +1,51 @@
-# 💳 Challenge: NexusPay - API Security Assessment
+# 🏛️ NusantaraGateway - Internal API Documentation
 
-**Difficulty:** Easy-Medium  
-**Port:** 5005  
-**Category:** Web Security / API Testing
-
----
-
-## 📝 Scenario
-
-**PENETRATION TEST SCOPE DOCUMENT**  
-**Client:** NexusPay Inc.  
-**Engagement:** API Security Assessment  
-**Classification:** Confidential
+**Project:** Core Payment Infrastructure (ID-Region)  
+**Version:** v2.4.0-stable  
+**Maintainer:** PT Nusantara Digital Solusi
 
 ---
 
-### Background
+## � Developer Internal Note (From: Chief Architect, Budi)
 
-NexusPay is a payment processing platform that handles millions of transactions daily. Following industry best practices, their security team has implemented strict access controls on all sensitive API endpoints.
+**Subject:** API Export Endpoint Security Update
 
-### Scope
+Selamat Pagi Team,
 
-Your assessment is limited to the following endpoint:
+We have successfully migrated the legacy payment gateway to the new **NusantaraGateway** infrastructure. The new system is designed to handle high-throughput IDR processing for our UMKM partners.
 
-```
-Target: http://[TARGET_IP]:5005
-Endpoint: /api/v1/transactions/export
-```
+However, we are still auditing the **Data Export** module (`/api/v1/transactions/export`). The frontend team previously reported CORS issues, so we had to tweak the allowed HTTP methods configuration.
 
-### Objective
+**Important Security Notice:** 
+To comply with **UU PDP (Personal Data Protection Law)**, we have **DISABLED standard GET requests** on the export endpoint. This is to prevent sensitive transaction data from being cached in browser history or proxy logs.
 
-The development team claims this endpoint is "fully secured" and cannot be accessed without proper authentication. Your task is to verify this claim and document any findings.
-
-### Rules of Engagement
-
-- Do not attempt to brute-force credentials
-- Do not perform denial of service attacks  
-- Focus on access control validation
+Please perform your integration tests using the updated specifications. The endpoint should be strictly authenticated. If you encounter issues, check if the legacy HTTP methods (POST, etc.) are behaving as expected compared to the new security rules.
 
 ---
 
-## 🛠️ Setup
+## 🔗 Endpoint Specifications
+
+**Base URL:** `http://localhost:5005`
+
+### Transaction Data Export
+> **Warning:** This endpoint handles strict PII. All access is logged and audited.
+
+- **Route:** `/api/v1/transactions/export`
+- **Access Control:** Level 4 (Finance Director)
+- **Supported Methods:** (Please check `OPTIONS`)
+
+---
+
+## � Environment Setup
+
+To start the local development server:
 
 ```bash
 docker-compose up -d --build
 ```
 
-Access at: `http://localhost:5005`
+Access the dashboard at: `http://localhost:5005`
 
 ---
 
-## 📚 Skills Required
-
-- REST API fundamentals
-- HTTP protocol understanding
-- API testing methodology
+*© 2025 PT Nusantara Digital Solusi. All Rights Reserved. Confidential.*

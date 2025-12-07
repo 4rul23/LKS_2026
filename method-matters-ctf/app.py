@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import json
 
 app = Flask(__name__)
-app.secret_key = 'nexuspay_internal_2024'
+app.secret_key = 'nusantara_gateway_internal_2025'
 
 FLAG = "STELKCSC{http_m3th0ds_m4tt3r_1n_4p1s}"
 

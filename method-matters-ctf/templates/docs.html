@@ -4,19 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Reference | NexusPay</title>
+    <title>API Reference | NusantaraGateway</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'system-ui'], mono: ['JetBrains Mono', 'monospace'] },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui'], mono: ['JetBrains Mono', 'monospace'] },
                     colors: {
-                        brand: { 500: '#3b82f6', 600: '#2563eb' },
-                        surface: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' }
+                        brand: { 500: '#ef4444', 600: '#dc2626' }, // Red
+                        surface: { 800: '#1f2937', 900: '#111827', 950: '#030712' }
                     }
                 }
             }
@@ -37,12 +37,12 @@
                                     d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                         </div>
-                        <span class="font-semibold">NexusPay</span>
+                        <span class="font-bold tracking-tight">NusantaraGateway</span>
                     </a>
                     <span class="text-gray-600">|</span>
-                    <span class="text-gray-400 text-sm">API Reference</span>
+                    <span class="text-gray-400 text-sm">Dokumentasi API</span>
                 </div>
-                <span class="text-xs font-mono text-gray-500">v1.0.3</span>
+                <span class="text-xs font-mono text-gray-500">v2.4.0-stable</span>
             </div>
         </div>
     </nav>
@@ -50,30 +50,37 @@
     <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div class="mb-10">
             <h1 class="text-3xl font-bold mb-2">Transaction Export API</h1>
-            <p class="text-gray-400">Programmatic access to transaction data export functionality.</p>
+            <p class="text-gray-400">Modul untuk ekspor data transaksi history.</p>
         </div>
 
         <!-- Endpoint Card -->
         <div class="bg-surface-900/50 backdrop-blur rounded-2xl border border-white/5 overflow-hidden mb-8">
             <div class="p-5 bg-surface-800/50 border-b border-white/5">
                 <div class="flex flex-wrap items-center gap-3">
+                    <div
+                        class="px-2 py-1 rounded bg-brand-600/20 border border-brand-600/30 text-brand-500 font-mono text-xs font-bold">
+                        REST</div>
                     <code class="font-mono text-sm text-gray-300">/api/v1/transactions/export</code>
                 </div>
             </div>
 
             <div class="p-6 space-y-8">
                 <section>
-                    <h2 class="text-sm font-semibold text-white mb-2">Description</h2>
-                    <p class="text-gray-400 text-sm leading-relaxed">Export transaction records for reporting and
-                        reconciliation purposes. Access is restricted based on authentication level and request method.
+                    <h2 class="text-sm font-semibold text-white mb-2">Deskripsi</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Endpoint ini digunakan untuk mengunduh laporan transaksi harian dalam format JSON.
+                        Akses dibatasi sesuai level otorisasi pengguna.
+                        <br><br>
+                        <strong class="text-red-400">Security Note (UU PDP Compliance):</strong>
+                        Permintaan GET standar telah dinonaktifkan. Client diharapkan menggunakan metode HTTP yang
+                        sesuai dengan standar internal kami.
                     </p>
                 </section>
 
                 <section>
-                    <h2 class="text-sm font-semibold text-white mb-4">Authentication</h2>
+                    <h2 class="text-sm font-semibold text-white mb-4">Autentikasi</h2>
                     <div class="bg-surface-950/50 rounded-xl p-4 border border-white/5">
-                        <p class="text-gray-400 text-sm">This endpoint requires proper authentication. Include your API
-                            key in the request header:</p>
+                        <p class="text-gray-400 text-sm">Endpoint ini membutuhkan API Key yang valid pada header:</p>
                         <code
                             class="block mt-3 text-sm text-emerald-400 font-mono">Authorization: Bearer &lt;your_api_key&gt;</code>
                     </div>
@@ -85,16 +92,16 @@
                         <div class="flex items-center gap-3 p-3 bg-surface-950/50 rounded-lg border border-white/5">
                             <span
                                 class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-xs font-mono rounded">200</span>
-                            <span class="text-gray-400 text-sm">Success - Data exported</span>
+                            <span class="text-gray-400 text-sm">OK - Data berhasil diekspor</span>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-surface-950/50 rounded-lg border border-white/5">
                             <span
                                 class="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-xs font-mono rounded">401</span>
-                            <span class="text-gray-400 text-sm">Unauthorized - Invalid or missing credentials</span>
+                            <span class="text-gray-400 text-sm">Unauthorized - Token tidak valid</span>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-surface-950/50 rounded-lg border border-white/5">
                             <span class="px-2 py-0.5 bg-red-500/20 text-red-400 text-xs font-mono rounded">403</span>
-                            <span class="text-gray-400 text-sm">Forbidden - Access denied</span>
+                            <span class="text-gray-400 text-sm">Forbidden - Akses metode GET ditolak</span>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-surface-950/50 rounded-lg border border-white/5">
                             <span class="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-xs font-mono rounded">405</span>
@@ -104,11 +111,12 @@
                 </section>
 
                 <section>
-                    <h2 class="text-sm font-semibold text-white mb-3">Example Request</h2>
+                    <h2 class="text-sm font-semibold text-white mb-3">Contoh Request (cURL)</h2>
                     <div class="bg-surface-950 rounded-xl p-4 border border-white/5 font-mono text-sm">
-                        <p class="text-gray-500"># Export transactions</p>
-                        <p class="text-emerald-400">curl -H "Authorization: Bearer $API_KEY" \</p>
-                        <p class="text-emerald-400 pl-4">http://api.nexuspay.io/v1/transactions/export</p>
+                        <p class="text-gray-500"># Export transactions data</p>
+                        <p class="text-brand-500">curl <span class="text-emerald-400">-X [METHOD]</span> \</p>
+                        <p class="text-gray-300 pl-4">-H "Authorization: Bearer $API_KEY" \</p>
+                        <p class="text-gray-300 pl-4">http://api.nusanta.ra/v1/transactions/export</p>
                     </div>
                 </section>
             </div>
@@ -117,21 +125,21 @@
         <!-- Rate Limits -->
         <div class="bg-surface-900/50 backdrop-blur rounded-2xl border border-white/5 overflow-hidden">
             <div class="p-5 border-b border-white/5">
-                <h3 class="font-semibold">Rate Limits</h3>
+                <h3 class="font-semibold">Batasan Rate Limit</h3>
             </div>
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="text-center p-4 bg-surface-950/50 rounded-xl border border-white/5">
-                        <p class="text-2xl font-bold text-white">100</p>
-                        <p class="text-gray-500 text-sm">Requests / minute</p>
+                        <p class="text-2xl font-bold text-white">500</p>
+                        <p class="text-gray-500 text-sm">Req / menit</p>
                     </div>
                     <div class="text-center p-4 bg-surface-950/50 rounded-xl border border-white/5">
-                        <p class="text-2xl font-bold text-white">10,000</p>
-                        <p class="text-gray-500 text-sm">Requests / day</p>
+                        <p class="text-2xl font-bold text-white">50k</p>
+                        <p class="text-gray-500 text-sm">Req / hari</p>
                     </div>
                     <div class="text-center p-4 bg-surface-950/50 rounded-xl border border-white/5">
-                        <p class="text-2xl font-bold text-white">50MB</p>
-                        <p class="text-gray-500 text-sm">Max response size</p>
+                        <p class="text-2xl font-bold text-white">100MB</p>
+                        <p class="text-gray-500 text-sm">Maks ukuran response</p>
                     </div>
                 </div>
             </div>
@@ -140,7 +148,7 @@
 
     <footer class="mt-12 py-6 border-t border-white/5">
         <div class="max-w-5xl mx-auto px-4 text-center">
-            <p class="text-gray-600 text-sm">© 2024 NexusPay Inc.</p>
+            <p class="text-gray-600 text-sm">© 2025 PT Nusantara Digital Solusi.</p>
         </div>
     </footer>
 </body>

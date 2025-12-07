@@ -29,8 +29,8 @@ services:
     build: ./services/dns
     container_name: protocol-ctf-dns
     ports:
-      - "5353:53/udp"
-      - "5353:53/tcp"
+      - "5354:53/udp"
+      - "5354:53/tcp"
     volumes:
       - ./flags:/flags:ro
 
