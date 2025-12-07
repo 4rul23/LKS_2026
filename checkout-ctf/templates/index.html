@@ -4,101 +4,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VAPOR GAMES - Digital Marketplace</title>
+    <title>Nexus Gaming | Digital Checkout</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Outfit', 'system-ui'] },
+                    fontFamily: { sans: ['Space Grotesk', 'system-ui'], mono: ['JetBrains Mono', 'monospace'] },
                     colors: {
-                        vapor: {
-                            lime: '#84cc16',
-                            teal: '#14b8a6',
-                            dark: '#0c0c0c',
-                            card: '#171717',
-                            border: '#262626'
-                        }
+                        ink: { 900: '#0b0f19', 800: '#111827', 700: '#1f2937' },
+                        accent: { 500: '#7C3AED', 400: '#A78BFA' },
+                        mint: { 500: '#10B981', 400: '#34D399' },
+                        slate: { 200: '#E5E7EB', 400: '#9CA3AF' }
                     }
                 }
             }
         }
     </script>
     <style>
-        .steam-gradient {
-            background: linear-gradient(180deg, #1a1a2e 0%, #0c0c0c 100%);
-        }
-
-        .lime-glow {
-            box-shadow: 0 0 20px rgba(132, 204, 22, 0.15);
+        .grid-glow {
+            background: radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.12), transparent 28%),
+                radial-gradient(circle at 80% 0%, rgba(16, 185, 129, 0.10), transparent 28%),
+                linear-gradient(180deg, #0b0f19 0%, #0f172a 100%);
         }
     </style>
 </head>
 
-<body class="steam-gradient min-h-screen font-sans text-gray-100">
-    <nav class="bg-black/60 backdrop-blur border-b border-vapor-border sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between h-14 items-center">
-                <div class="flex items-center gap-8">
-                    <a href="/" class="flex items-center gap-2">
-                        <div class="text-vapor-lime text-2xl">▸</div>
-                        <span class="text-xl font-bold">VAPOR</span>
-                    </a>
-                    <div class="hidden md:flex items-center gap-6 text-sm">
-                        <a href="#" class="text-white font-medium">Store</a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">Library</a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">Community</a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">Support</a>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div class="text-vapor-lime text-sm font-medium">Wallet: Rp 0</div>
-                    <div class="w-8 h-8 bg-vapor-card rounded border border-vapor-border"></div>
+<body class="grid-glow min-h-screen text-slate-200 font-sans">
+    <div class="max-w-6xl mx-auto px-5 py-8">
+        <header class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent-500/20 border border-accent-500/30 flex items-center justify-center text-accent-400 font-bold">NX</div>
+                <div>
+                    <p class="text-sm text-slate-400">Nexus Gaming Commerce</p>
+                    <h1 class="text-xl font-semibold text-white">Flash Drop Checkout</h1>
                 </div>
             </div>
-        </div>
-    </nav>
+            <div class="flex items-center gap-3 text-sm">
+                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">Staging</span>
+                <span class="text-slate-400">Cart integrity: <span class="text-mint-400 font-semibold">Review Required</span></span>
+            </div>
+        </header>
 
-    <header class="py-8 px-6 border-b border-vapor-border bg-black/30">
-        <div class="max-w-7xl mx-auto">
-            <h1 class="text-2xl font-bold text-vapor-lime">Featured & Recommended</h1>
-        </div>
-    </header>
+        <section class="mt-10 grid gap-8 lg:grid-cols-3 lg:items-start">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="p-6 rounded-2xl border border-white/5 bg-white/5 backdrop-blur">
+                    <div class="flex items-start justify-between gap-4 mb-6">
+                        <div>
+                            <p class="text-sm text-slate-400">Featured lineup</p>
+                            <h2 class="text-2xl font-semibold text-white">Premium content, instant delivery</h2>
+                        </div>
+                        <div class="hidden md:flex items-center gap-2 text-xs text-slate-400">
+                            <span class="w-2 h-2 rounded-full bg-mint-400 animate-pulse"></span> Live pricing cache
+                        </div>
+                    </div>
 
-    <main class="max-w-7xl mx-auto px-6 py-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {% for id, product in products.items() %}
-            <a href="/product/{{ product.id }}"
-                class="group bg-vapor-card rounded-lg overflow-hidden border border-vapor-border hover:border-vapor-lime/50 transition-all hover:-translate-y-1 lime-glow">
-                <div
-                    class="h-40 {% if product.image == 'legendary' %}bg-gradient-to-br from-amber-900/30 to-orange-900/20{% elif product.image == 'season' %}bg-gradient-to-br from-emerald-900/30 to-teal-900/20{% else %}bg-gradient-to-br from-blue-900/30 to-indigo-900/20{% endif %} flex items-center justify-center">
-                    <span class="text-5xl opacity-60">{% if product.image == 'legendary' %}🗝️{% elif product.image ==
-                        'season' %}⭐{% else %}👑{% endif %}</span>
-                </div>
-                <div class="p-4">
-                    <h3 class="font-semibold text-white group-hover:text-vapor-lime transition mb-1">{{ product.name }}
-                    </h3>
-                    <p class="text-gray-500 text-xs mb-3 line-clamp-1">{{ product.description }}</p>
-                    <div class="flex items-center justify-between">
-                        <span class="bg-vapor-lime/20 text-vapor-lime text-xs px-2 py-1 rounded">DIGITAL</span>
-                        <span class="font-bold text-white">Rp {{ "{:,}".format(product.price) }}</span>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        {% for id, product in products.items() %}
+                        <a href="/product/{{ product.id }}"
+                            class="group rounded-xl border border-white/5 bg-ink-800/60 hover:border-accent-500/50 transition overflow-hidden">
+                            <div class="p-4 flex items-start gap-3">
+                                <div class="w-12 h-12 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center text-accent-400">
+                                    {% if product.image == 'legendary' %}★{% elif product.image == 'season' %}⚡{% else %}∞{% endif %}
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-white group-hover:text-accent-400 transition">{{ product.name }}</h3>
+                                    <p class="text-sm text-slate-400 line-clamp-2">{{ product.description }}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-slate-400">From</p>
+                                    <p class="text-lg font-bold text-white">Rp {{ "{:,}".format(product.price) }}</p>
+                                </div>
+                            </div>
+                            <div class="px-4 pb-4 flex items-center justify-between text-xs text-slate-400">
+                                <span class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-accent-500/50"></span>
+                                    Digital delivery
+                                </span>
+                                <span class="group-hover:text-accent-400 flex items-center gap-1">View details →</span>
+                            </div>
+                        </a>
+                        {% endfor %}
                     </div>
                 </div>
-            </a>
-            {% endfor %}
-        </div>
-    </main>
-
-    <footer class="py-6 px-6 border-t border-vapor-border mt-12">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-2 text-gray-500 text-sm">
-                <span class="text-vapor-lime">▸</span>
-                <span>© 2024 Vapor Corporation.</span>
             </div>
-            <p class="text-gray-600 text-xs">STELK CSC Challenge</p>
-        </div>
-    </footer>
+
+            <aside class="p-6 rounded-2xl border border-white/5 bg-ink-800/80 backdrop-blur space-y-4">
+                <h3 class="text-lg font-semibold text-white">Release window</h3>
+                <p class="text-sm text-slate-400">We cached current SKUs for load testing. Pricing and totals should be confirmed server-side before fulfillment.</p>
+                <div class="text-sm text-slate-400 space-y-2">
+                    <p>• No payment gateway calls in this lab.</p>
+                    <p>• Orders complete instantly after form submission.</p>
+                    <p>• Focus: price integrity and checkout validation.</p>
+                </div>
+                <div class="p-4 rounded-xl border border-accent-500/30 bg-accent-500/10">
+                    <p class="text-xs text-accent-400 font-mono">Env</p>
+                    <p class="text-white font-semibold">staging-nx-checkout</p>
+                    <p class="text-xs text-slate-400 mt-1">localhost:5006</p>
+                </div>
+            </aside>
+        </section>
+
+        <footer class="mt-12 text-sm text-slate-500 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+            <span>© 2025 Nexus Gaming Commerce</span>
+            <span class="text-slate-500">Internal assurance lab — pricing trust test</span>
+        </footer>
+    </div>
 </body>
 
 </html>

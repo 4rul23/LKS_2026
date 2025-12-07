@@ -4,89 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.name }} - VAPOR GAMES</title>
+    <title>{{ product.name }} | Nexus Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Outfit', 'system-ui'] },
+                    fontFamily: { sans: ['Space Grotesk', 'system-ui'], mono: ['JetBrains Mono', 'monospace'] },
                     colors: {
-                        vapor: { lime: '#84cc16', teal: '#14b8a6', dark: '#0c0c0c', card: '#171717', border: '#262626' }
+                        ink: { 900: '#0b0f19', 800: '#111827', 700: '#1f2937' },
+                        accent: { 500: '#7C3AED', 400: '#A78BFA' },
+                        mint: { 500: '#10B981' },
+                        slate: { 200: '#E5E7EB', 400: '#9CA3AF' }
                     }
                 }
             }
         }
     </script>
     <style>
-        .steam-gradient {
-            background: linear-gradient(180deg, #1a1a2e 0%, #0c0c0c 100%);
+        .bg-panel {
+            background: radial-gradient(circle at 12% 10%, rgba(124, 58, 237, 0.12), transparent 28%),
+                radial-gradient(circle at 90% 20%, rgba(16, 185, 129, 0.10), transparent 28%),
+                linear-gradient(180deg, #0b0f19 0%, #0f172a 100%);
         }
     </style>
 </head>
 
-<body class="steam-gradient min-h-screen font-sans text-gray-100">
-    <nav class="bg-black/60 backdrop-blur border-b border-vapor-border sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between h-14 items-center">
-                <a href="/" class="flex items-center gap-2">
-                    <div class="text-vapor-lime text-2xl">▸</div>
-                    <span class="text-xl font-bold">VAPOR</span>
-                </a>
+<body class="bg-panel min-h-screen text-slate-200 font-sans">
+    <div class="max-w-5xl mx-auto px-5 py-8">
+        <header class="flex items-center justify-between mb-8">
+            <a href="/" class="flex items-center gap-2 text-slate-300 hover:text-white transition">
+                ← Back to catalog
+            </a>
+            <div class="flex items-center gap-2 text-xs text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-accent-400"></span> Live staging product
             </div>
-        </div>
-    </nav>
+        </header>
 
-    <main class="max-w-5xl mx-auto px-6 py-8">
-        <a href="/" class="inline-flex items-center gap-2 text-gray-400 hover:text-vapor-lime mb-6 text-sm transition">
-            ← Back to Store
-        </a>
-
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            <div class="lg:col-span-3">
-                <div class="bg-vapor-card rounded-lg border border-vapor-border overflow-hidden">
-                    <div
-                        class="h-64 {% if product.image == 'legendary' %}bg-gradient-to-br from-amber-900/30 to-orange-900/20{% elif product.image == 'season' %}bg-gradient-to-br from-emerald-900/30 to-teal-900/20{% else %}bg-gradient-to-br from-blue-900/30 to-indigo-900/20{% endif %} flex items-center justify-center">
-                        <span class="text-8xl opacity-50">{% if product.image == 'legendary' %}🗝️{% elif product.image
-                            == 'season' %}⭐{% else %}👑{% endif %}</span>
+        <div class="grid gap-8 lg:grid-cols-5 items-start">
+            <div class="lg:col-span-3 space-y-4">
+                <div class="rounded-2xl border border-white/5 bg-white/5 p-6">
+                    <div class="h-64 rounded-xl border border-white/10 bg-ink-800 flex items-center justify-center text-6xl text-accent-400">
+                        {% if product.image == 'legendary' %}★{% elif product.image == 'season' %}⚡{% else %}∞{% endif %}
                     </div>
                 </div>
-                <div class="mt-6">
-                    <h2 class="text-lg font-semibold mb-3 text-gray-300">About This Content</h2>
-                    <p class="text-gray-400 leading-relaxed">{{ product.description }} This digital content will be
-                        delivered instantly to your account upon purchase.</p>
+                <div class="rounded-2xl border border-white/5 bg-ink-800/60 p-6 space-y-3">
+                    <h2 class="text-lg font-semibold text-white">About this product</h2>
+                    <p class="text-slate-300 leading-relaxed">{{ product.description }} Delivered instantly to your Nexus Gaming account once the order completes.</p>
                 </div>
             </div>
 
             <div class="lg:col-span-2">
-                <div class="bg-vapor-card rounded-lg border border-vapor-border p-6 sticky top-20">
-                    <span class="bg-vapor-lime/20 text-vapor-lime text-xs px-2 py-1 rounded mb-4 inline-block">DIGITAL
-                        CONTENT</span>
-                    <h1 class="text-2xl font-bold mb-2">{{ product.name }}</h1>
+                <div class="rounded-2xl border border-white/5 bg-ink-800/80 p-6 space-y-4 sticky top-8">
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase tracking-wide">Digital content</p>
+                            <h1 class="text-2xl font-semibold text-white">{{ product.name }}</h1>
+                        </div>
+                        <span class="text-xs px-2 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">Instant</span>
+                    </div>
 
-                    <div class="py-4 border-y border-vapor-border my-4">
-                        <p class="text-3xl font-bold text-vapor-lime">Rp {{ "{:,}".format(product.price) }}</p>
+                    <div class="py-3 border-y border-white/5">
+                        <p class="text-slate-400 text-sm">Price</p>
+                        <p class="text-3xl font-bold text-white">Rp {{ "{:,}".format(product.price) }}</p>
                     </div>
 
                     <a href="/checkout/{{ product.id }}"
-                        class="block w-full text-center py-3 bg-vapor-lime hover:bg-lime-400 text-black font-bold rounded transition mb-3">
-                        Purchase
+                        class="block w-full text-center py-3 rounded-lg bg-accent-500 hover:bg-accent-400 text-white font-semibold transition">
+                        Proceed to checkout
                     </a>
-                    <button
-                        class="block w-full text-center py-3 border border-vapor-border hover:bg-vapor-border text-white font-medium rounded transition">
-                        Add to Wishlist
+                    <button class="block w-full text-center py-3 rounded-lg border border-white/10 text-slate-200 hover:border-white/30 transition">
+                        Save for later
                     </button>
 
-                    <div class="mt-6 pt-4 border-t border-vapor-border text-xs text-gray-500 space-y-2">
-                        <p>✓ Instant delivery</p>
-                        <p>✓ Cross-platform compatible</p>
-                        <p>✓ 24/7 support</p>
+                    <div class="text-xs text-slate-400 space-y-2 border-t border-white/5 pt-3">
+                        <p>Includes cloud activation and license sync.</p>
+                        <p>Pricing data cached on client for snappy UX; server enforces business rules.</p>
+                        <p>No payment gateway calls in this lab environment.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 </body>
 
 </html>

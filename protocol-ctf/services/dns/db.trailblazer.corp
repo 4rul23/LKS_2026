@@ -16,6 +16,6 @@ mail        IN      A       127.0.0.1
 smb         IN      A       127.0.0.1
 
 ; Flag/Hint Records
-smb         IN      TXT     "finance_backup share -> smbuser:smbpass123"
+smb         IN      TXT     "finance_backup share -> smbuser"
 mail        IN      TXT     "v=spf1 mx -all"
 flag        IN      TXT     "STELKCSC{dns_zone_xfer}"

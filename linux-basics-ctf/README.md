@@ -1,38 +1,60 @@
-# 🐧 Linux Basics CTF - The Lost Key
+# 🐧 Challenge: Operation BLACK PENGUIN
 
-**Difficulty:** Easy  
-**Category:** Linux Fundamentals  
-**Port:** 2222 (SSH)
+> **CLASSIFIED ASSIGNMENT // LINUX RECOVERY**
+> **Codename:** FROZEN_SERVER
+> **Target:** Legacy Database Server (Linux)
 
-## 📝 Scenario
+---
 
-Sysadmin sebelumnya meninggalkan server secara tiba-tiba. Tim IT membutuhkan bantuan Anda untuk menemukan recovery key yang tersimpan di suatu tempat di server ini.
+## 🕵️ Mission Briefing
+**Agent**,
+Our monitoring station lost contact with one of our deep-storage legacy servers, codenamed **BLACK PENGUIN**. The previous administrator, "CyberDave", vanished mysteriously last week, leaving behind a chaotic file system and zero documentation.
 
-**Credentials:**
+We need you to SSH into the box, navigate through his messy directories, and recover the **Master Recovery Key** (the Flag). Dave was known for hiding secrets in plain sight and using hidden files.
+
+**Intel:**
+- He often left notes for himself.
+- He used multiple user accounts to hide his tracks.
+- He loved "dotfiles".
+
+---
+
+## 🎯 Target Scope
+- **Protocol:** SSH
+- **Port:** 2222
+- **Objective:** Locate and retrieve the Flag.
+
+**Credentials (Provided by HR):**
 - **User:** `ctfuser`
-- **Password:** `intership2024`
+- **Password:** `internship2024`
 
-## 🎯 Objective
+---
 
-Connect via SSH dan temukan flag yang tersembunyi. Ikuti petunjuk yang ada di server.
-
-## 🛠️ Connection
-
-```bash
-ssh ctfuser@<SERVER_IP> -p 2222
-```
-
-## 💡 Hints
-
-- Baca file yang ada di home directory Anda
-- Perhatikan semua informasi yang Anda temukan
-- Gunakan command `ls -la` untuk melihat hidden files
-- Explore direktori `/home` untuk melihat user lain
-
-## 🔧 Local Setup (Juri Only)
+## 🛠️ Deployment
+Initialize the target environment:
 
 ```bash
+cd linux-basics-ctf
 docker-compose up -d --build
 ```
 
-Connect locally: `ssh ctfuser@localhost -p 2222`
+**Access:**
+```bash
+ssh ctfuser@localhost -p 2222
+```
+
+---
+
+## 🧩 Intelligence (Hints)
+*   *"If a file starts with a dot, `ls` won't show it unless you ask nicely (`-a`)."*
+*   *"Sometimes the treasure isn't in your house, but your neighbor's (`/home`)."*
+*   *"Reading is fundamental. check `README` or `.txt` files."*
+
+---
+
+## 🏆 Key Takeaways (Post-Game)
+- **Linux Navigation:** Mastery of `ls`, `cd`, `cat`, and permissions.
+- **Hidden Files:** Creating and finding files named like `.secret` is a basic obfuscation technique.
+- **Permission Model:** Understanding User vs Group vs World permissions.
+
+*Good luck, Agent. Verify your shell.*

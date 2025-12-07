@@ -4,7 +4,7 @@
 - **Name:** User-Agent Gatekeeper
 - **Category:** Web / HTTP Fundamentals
 - **Difficulty:** Easy
-- **Flag:** `STELKCSC{us3r_4g3nt_sp00f1ng_m4st3r}`
+- **Flag:** `   `
 
 ## Reconnaissance
 

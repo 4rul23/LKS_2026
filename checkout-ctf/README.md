@@ -1,49 +1,43 @@
-# 🎮 Challenge: Nexus Gaming - The Checkout
+# Nexus Gaming - Checkout Assurance (CTF)
 
 **Difficulty:** Easy  
 **Port:** 5006  
-**Category:** Web Security / Client-Side Validation
+**Category:** Web Security / Payment Flow Hardening
 
 ---
 
-## 📝 Scenario
+## Scenario (Bug Bounty / Production-like)
 
-**BUG BOUNTY PROGRAM**  
-**Target:** Nexus Gaming Digital Store  
-**Scope:** Payment processing flow
+**Program:** Nexus Gaming Enterprise Store (staging, internet-reachable in a real engagement; local in this lab)  
+**Surface:** Checkout and payment submission flow  
+**Context:** Frontend was recently refactored to speed up flash-sale checkouts. Security asked for a light-touch review to ensure pricing and totals still enforce business rules server-side.
 
 ---
 
 ### About Nexus Gaming
 
-Nexus Gaming is a popular digital gaming store that sells premium content, season passes, and exclusive DLC keys. Their platform processes thousands of transactions daily.
+Nexus Gaming handles premium DLCs and season passes with high traffic during drops. Product and pricing data are rendered client-side for responsiveness; the backend is expected to verify any monetary fields before fulfillment.
 
-### Scope
+### Rules / Scope
 
-The development team has recently launched a new checkout system. Your task is to test the payment flow for any security issues that could allow unauthorized transactions.
-
-**Target:** `http://[TARGET_IP]:5006`
-
-### Out of Scope
-
-- Denial of Service attacks
-- Social engineering
-- Attacks on third-party services
+- Target: `http://[TARGET_IP]:5006`
+- Test the purchase flow for gaps that allow underpayment/zero-cost checkout.
+- Stay within the provided host/port. No external services, no auth brute force.
+- Out of scope: DoS, social engineering, attacks on third-party processors.
 
 ---
 
-## 🛠️ Setup
+## Setup (local lab)
 
 ```bash
 docker-compose up -d --build
 ```
 
-Access at: `http://localhost:5006`
+Access locally at: `http://localhost:5006`
 
 ---
 
-## 📚 Skills Required
+## Skills Useful
 
-- Web application fundamentals
-- HTML form understanding
-- Browser developer tools
+- Basic web testing (forms, requests, DevTools/proxy)
+- Understanding client vs server trust boundaries for price/total fields

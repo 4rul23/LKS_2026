@@ -43,4 +43,4 @@ services:
     ports:
       - "1445:445"
     volumes:
-      - ./flags:/share:ro
+      - ./services/smb/share:/share:ro

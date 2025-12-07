@@ -4,82 +4,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Complete - VAPOR GAMES</title>
+    <title>Order Complete | Nexus Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Outfit', 'system-ui'] },
+                    fontFamily: { sans: ['Space Grotesk', 'system-ui'], mono: ['JetBrains Mono', 'monospace'] },
                     colors: {
-                        vapor: { lime: '#84cc16', dark: '#0c0c0c', card: '#171717', border: '#262626' }
+                        ink: { 900: '#0b0f19', 800: '#111827' },
+                        accent: { 500: '#7C3AED', 400: '#A78BFA' },
+                        mint: { 500: '#10B981' },
+                        slate: { 200: '#E5E7EB', 400: '#9CA3AF' }
                     }
                 }
             }
         }
     </script>
     <style>
-        .steam-gradient {
-            background: linear-gradient(180deg, #1a1a2e 0%, #0c0c0c 100%);
+        .bg-panel {
+            background: radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.12), transparent 28%),
+                radial-gradient(circle at 85% 0%, rgba(16, 185, 129, 0.10), transparent 30%),
+                linear-gradient(180deg, #0b0f19 0%, #0f172a 100%);
         }
     </style>
 </head>
 
-<body class="steam-gradient min-h-screen font-sans text-gray-100">
-    <nav class="bg-black/60 backdrop-blur border-b border-vapor-border sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between h-14 items-center">
-                <a href="/" class="flex items-center gap-2">
-                    <div class="text-vapor-lime text-2xl">▸</div>
-                    <span class="text-xl font-bold">VAPOR</span>
-                </a>
-            </div>
-        </div>
-    </nav>
+<body class="bg-panel min-h-screen text-slate-200 font-sans">
+    <div class="max-w-4xl mx-auto px-5 py-12">
+        <header class="flex items-center justify-between mb-10">
+            <a href="/" class="text-slate-300 hover:text-white transition">← Back to catalog</a>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">Test checkout</span>
+        </header>
 
-    <main class="max-w-xl mx-auto px-6 py-16 text-center">
-        <div class="w-20 h-20 bg-vapor-lime rounded-full flex items-center justify-center mx-auto mb-6">
-            <span class="text-black text-4xl">✓</span>
-        </div>
-
-        <h1 class="text-3xl font-bold mb-2">Purchase Complete!</h1>
-        <p class="text-gray-400 mb-8">Your content has been added to your library.</p>
-
-        <div class="bg-vapor-card rounded-lg border border-vapor-border p-6 text-left mb-8">
-            <div class="flex justify-between py-2 border-b border-vapor-border">
-                <span class="text-gray-400">Product</span>
-                <span>{{ product.name }}</span>
-            </div>
-            <div class="flex justify-between py-2 border-b border-vapor-border">
-                <span class="text-gray-400">Order ID</span>
-                <span class="font-mono text-sm">#VPR-{{ range(100000, 999999) | random }}</span>
-            </div>
-            <div class="flex justify-between py-2">
-                <span class="text-gray-400">Amount</span>
-                <span class="{% if paid <= 0 %}text-vapor-lime font-bold{% endif %}">Rp {{ "{:,}".format(paid) }}</span>
-            </div>
-        </div>
-
-        {% if flag %}
-        <div class="bg-vapor-lime/10 border border-vapor-lime/30 rounded-lg p-6 text-left">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="text-2xl">🏆</span>
+        <div class="rounded-2xl border border-white/5 bg-white/5 p-8 backdrop-blur">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 rounded-full bg-mint-500/15 border border-mint-500/30 flex items-center justify-center text-mint-500 text-xl">✓</div>
                 <div>
-                    <h3 class="font-bold text-vapor-lime">Achievement Unlocked!</h3>
-                    <p class="text-sm text-gray-400">You found a critical vulnerability</p>
+                    <h1 class="text-2xl font-semibold text-white">Purchase complete</h1>
+                    <p class="text-sm text-slate-400">Your content has been provisioned to your account.</p>
                 </div>
             </div>
-            <div class="bg-vapor-dark rounded p-4 text-center">
-                <code class="text-vapor-lime font-mono cursor-pointer select-all"
-                    onclick="navigator.clipboard.writeText(this.textContent)">{{ flag }}</code>
-            </div>
-            <p class="text-xs text-gray-500 text-center mt-2">Click to copy</p>
-        </div>
-        {% endif %}
 
-        <a href="/" class="inline-block mt-8 text-vapor-lime hover:underline">← Back to Store</a>
-    </main>
+            <div class="rounded-xl border border-white/10 bg-ink-800/70 p-6 space-y-3">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-400">Product</span>
+                    <span class="font-semibold text-white">{{ product.name }}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-400">Order ID</span>
+                    <span class="font-mono text-slate-200">#VPR-{{ range(100000, 999999) | random }}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-400">Amount</span>
+                    <span class="{% if paid <= 0 %}text-mint-500 font-semibold{% else %}text-white font-semibold{% endif %}">Rp {{ "{:,}".format(paid) }}</span>
+                </div>
+            </div>
+
+            {% if flag %}
+            <div class="mt-6 rounded-xl border border-accent-500/40 bg-accent-500/10 p-6">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-lg bg-accent-500/30 border border-accent-500/40 flex items-center justify-center text-accent-400 font-mono">FLAG</div>
+                    <div>
+                        <h3 class="text-white font-semibold">Security finding recorded</h3>
+                        <p class="text-sm text-slate-300">Client-trusted pricing accepted. Bonus unlocked.</p>
+                    </div>
+                </div>
+                <div class="bg-ink-800 border border-white/10 rounded-lg p-4 text-center">
+                    <code class="text-accent-400 font-mono cursor-pointer select-all" onclick="navigator.clipboard.writeText(this.textContent)">{{ flag }}</code>
+                </div>
+                <p class="text-xs text-slate-400 text-center mt-2">Click to copy</p>
+            </div>
+            {% endif %}
+
+            <div class="mt-8 text-center">
+                <a href="/" class="text-accent-400 hover:text-accent-300 transition">Continue exploring</a>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

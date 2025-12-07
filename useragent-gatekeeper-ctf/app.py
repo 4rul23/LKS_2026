@@ -12,7 +12,9 @@ def index():
     user_agent = request.headers.get('User-Agent', '')
     
     # Check if the User-Agent matches our secret
-    if SECRET_USER_AGENT in user_agent:
+    # Check if the User-Agent matches our secret (allow 1.0 or 2.0 based on footer hint)
+    ua_lower = user_agent.lower()
+    if "neonarcade/1.0" in ua_lower or "neonarcade/2.0" in ua_lower:
         return render_template('success.html', flag=FLAG)
     else:
         return render_template('index.html')

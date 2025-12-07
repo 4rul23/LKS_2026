@@ -3,7 +3,8 @@ FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y samba && rm -rf /var/lib/apt/lists/* && \
     useradd -M -s /sbin/nologin smbuser && \
     echo -e "smbpass123\nsmbpass123" | smbpasswd -a -s smbuser && \
-    mkdir -p /var/lib/samba && chmod 777 /var/lib/samba
+    mkdir -p /var/lib/samba && chmod 777 /var/lib/samba && \
+    mkdir -p /share
 
 COPY smb.conf /etc/samba/smb.conf
 

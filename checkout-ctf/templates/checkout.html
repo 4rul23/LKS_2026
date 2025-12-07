@@ -4,102 +4,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - VAPOR GAMES</title>
+    <title>Checkout | Nexus Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Outfit', 'system-ui'] },
+                    fontFamily: { sans: ['Space Grotesk', 'system-ui'], mono: ['JetBrains Mono', 'monospace'] },
                     colors: {
-                        vapor: { lime: '#84cc16', dark: '#0c0c0c', card: '#171717', border: '#262626' }
+                        ink: { 900: '#0b0f19', 800: '#111827', 700: '#1f2937' },
+                        accent: { 500: '#7C3AED', 400: '#A78BFA' },
+                        mint: { 500: '#10B981', 400: '#34D399' },
+                        slate: { 200: '#E5E7EB', 400: '#9CA3AF' }
                     }
                 }
             }
         }
     </script>
     <style>
-        .steam-gradient {
-            background: linear-gradient(180deg, #1a1a2e 0%, #0c0c0c 100%);
+        .bg-panel {
+            background: radial-gradient(circle at 8% 15%, rgba(124, 58, 237, 0.12), transparent 26%),
+                radial-gradient(circle at 90% 10%, rgba(16, 185, 129, 0.10), transparent 26%),
+                linear-gradient(180deg, #0b0f19 0%, #0f172a 100%);
         }
     </style>
 </head>
 
-<body class="steam-gradient min-h-screen font-sans text-gray-100">
-    <nav class="bg-black/60 backdrop-blur border-b border-vapor-border sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between h-14 items-center">
-                <a href="/" class="flex items-center gap-2">
-                    <div class="text-vapor-lime text-2xl">▸</div>
-                    <span class="text-xl font-bold">VAPOR</span>
-                </a>
-                <span class="text-sm text-gray-400">🔒 Secure Checkout</span>
+<body class="bg-panel min-h-screen text-slate-200 font-sans">
+    <div class="max-w-5xl mx-auto px-5 py-8">
+        <header class="flex items-center justify-between mb-8">
+            <div class="flex items-center gap-3">
+                <a href="/" class="text-slate-300 hover:text-white transition">← Back</a>
+                <span class="text-sm text-slate-400">Checkout</span>
             </div>
-        </div>
-    </nav>
+            <div class="flex items-center gap-2 text-xs text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-mint-400 animate-pulse"></span> Cart sync enabled
+            </div>
+        </header>
 
-    <main class="max-w-2xl mx-auto px-6 py-12">
-        <h1 class="text-2xl font-bold mb-8">Complete Your Purchase</h1>
-
-        <div class="bg-vapor-card rounded-lg border border-vapor-border overflow-hidden">
-            <div class="p-6 border-b border-vapor-border">
-                <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 rounded bg-vapor-dark flex items-center justify-center text-2xl">
-                        {% if product.image == 'legendary' %}🗝️{% elif product.image == 'season' %}⭐{% else %}👑{%
-                        endif %}
+        <div class="grid gap-6 lg:grid-cols-3">
+            <div class="lg:col-span-2 space-y-4">
+                <div class="rounded-2xl border border-white/5 bg-ink-800/80 p-6">
+                    <h2 class="text-lg font-semibold text-white mb-4">Order summary</h2>
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center text-accent-400 text-2xl">
+                            {% if product.image == 'legendary' %}★{% elif product.image == 'season' %}⚡{% else %}∞{% endif %}
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-slate-400">Digital content</p>
+                            <p class="font-semibold text-white">{{ product.name }}</p>
+                        </div>
+                        <p class="font-bold text-white text-lg">Rp {{ "{:,}".format(product.price) }}</p>
                     </div>
-                    <div class="flex-1">
-                        <h3 class="font-semibold">{{ product.name }}</h3>
-                        <p class="text-sm text-gray-500">Digital Content</p>
-                    </div>
-                    <p class="font-bold text-vapor-lime text-lg">Rp {{ "{:,}".format(product.price) }}</p>
                 </div>
-            </div>
 
-            <form action="/purchase" method="POST" class="p-6">
-                <input type="hidden" name="product_id" value="{{ product.id }}">
-                <input type="hidden" name="price" value="{{ product.price }}">
+                <form action="/purchase" method="POST" class="rounded-2xl border border-white/5 bg-white/5 p-6 space-y-4">
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <input type="hidden" name="price" value="{{ product.price }}">
 
-                <div class="space-y-4 mb-6">
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-2">Email</label>
-                        <input type="email" placeholder="gamer@example.com"
-                            class="w-full px-4 py-3 bg-vapor-dark border border-vapor-border rounded text-white placeholder-gray-600 focus:outline-none focus:border-vapor-lime transition">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-semibold text-white">Payment details</h2>
+                        <span class="text-xs px-2 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">Test mode</span>
                     </div>
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-2">Card Number</label>
+
+                    <label class="block text-sm text-slate-400">
+                        Email
+                        <input type="email" placeholder="player@nexus.gg"
+                            class="mt-1 w-full px-4 py-3 bg-ink-800 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-accent-500 transition">
+                    </label>
+
+                    <label class="block text-sm text-slate-400">
+                        Card number
                         <input type="text" placeholder="4242 4242 4242 4242"
-                            class="w-full px-4 py-3 bg-vapor-dark border border-vapor-border rounded text-white placeholder-gray-600 focus:outline-none focus:border-vapor-lime transition">
-                    </div>
+                            class="mt-1 w-full px-4 py-3 bg-ink-800 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-accent-500 transition">
+                    </label>
+
                     <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-2">Expiry</label>
+                        <label class="block text-sm text-slate-400">
+                            Expiry
                             <input type="text" placeholder="MM/YY"
-                                class="w-full px-4 py-3 bg-vapor-dark border border-vapor-border rounded text-white placeholder-gray-600 focus:outline-none focus:border-vapor-lime transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-2">CVV</label>
+                                class="mt-1 w-full px-4 py-3 bg-ink-800 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-accent-500 transition">
+                        </label>
+                        <label class="block text-sm text-slate-400">
+                            CVV
                             <input type="text" placeholder="123"
-                                class="w-full px-4 py-3 bg-vapor-dark border border-vapor-border rounded text-white placeholder-gray-600 focus:outline-none focus:border-vapor-lime transition">
+                                class="mt-1 w-full px-4 py-3 bg-ink-800 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-accent-500 transition">
+                        </label>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/5 text-sm text-slate-300 space-y-1">
+                        <div class="flex justify-between">
+                            <span>Subtotal</span>
+                            <span>Rp {{ "{:,}".format(product.price) }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Fees</span>
+                            <span class="text-slate-500">Included</span>
+                        </div>
+                        <div class="flex justify-between font-semibold text-white">
+                            <span>Total due</span>
+                            <span>Rp {{ "{:,}".format(product.price) }}</span>
                         </div>
                     </div>
-                </div>
 
-                <div class="flex justify-between py-4 border-t border-vapor-border mb-6">
-                    <span class="text-gray-400">Total</span>
-                    <span class="font-bold text-xl">Rp {{ "{:,}".format(product.price) }}</span>
-                </div>
+                    <button type="submit"
+                        class="w-full py-3 rounded-lg bg-accent-500 hover:bg-accent-400 text-white font-semibold transition shadow-lg shadow-accent-500/20">
+                        Complete purchase
+                    </button>
+                    <p class="text-xs text-slate-500 text-center">Test checkout — no real payment processed.</p>
+                </form>
+            </div>
 
-                <button type="submit"
-                    class="w-full py-4 bg-vapor-lime hover:bg-lime-400 text-black font-bold rounded transition">
-                    Complete Purchase
-                </button>
-            </form>
+            <aside class="rounded-2xl border border-white/5 bg-ink-800/80 p-6 space-y-4">
+                <h3 class="text-lg font-semibold text-white">Deployment notes</h3>
+                <p class="text-sm text-slate-400">Frontend renders prices directly for performance during flash sales. Backend is expected to re-evaluate monetary fields before fulfilling licenses.</p>
+                <div class="text-xs text-slate-400 space-y-2">
+                    <p>• No payment gateway calls in this lab.</p>
+                    <p>• Orders close immediately after form submit.</p>
+                    <p>• Integrity check: totals must be enforced server-side.</p>
+                </div>
+                <div class="p-4 rounded-xl border border-accent-500/30 bg-accent-500/10 text-sm">
+                    <p class="text-accent-400 font-mono">Endpoint</p>
+                    <p class="text-white font-semibold">POST /purchase</p>
+                    <p class="text-slate-400">Data is trusted to reflect UI totals.</p>
+                </div>
+            </aside>
         </div>
-
-        <p class="text-center text-gray-600 text-xs mt-6">🔒 Secured by 256-bit encryption</p>
-    </main>
+    </div>
 </body>
 
 </html>
